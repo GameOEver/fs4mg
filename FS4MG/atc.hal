@@ -1,0 +1,89 @@
+# ---------- ATC  ----------
+# Handles all functions pertaining to Tool Change operation
+# Includes the following functions:     
+#       - Check is spindle is off
+#       - set spindle.0.inhibit whenever drawbar is down (hardcoded based on sensor)
+#       - triggers cone cleaning when manual process is triggered
+#       - Configures tool change carousel
+
+# ---------- MANUAL TOOL CHANGE  ----------
+
+#MAN_BUTTON_CHECK
+#invert spindlenabled
+net spindle.enabled not.spindlecheck.in
+net spindle-enabled-not not.spindlecheck.out
+
+net DI-ATC-man-button and.spindlecheck.in0
+net spindle-enabled-not and.spindlecheck.in1
+net manualswapcheck and.spindlecheck.out
+
+
+#net dout-04  =>   hm2_7i96s.0.7i84.0.0.output-00    #AIR_IN_Ventil1
+#net dout-05 =>    hm2_7i96s.0.7i84.0.0.output-03 #DUST_REMOVE_Ventil4
+
+
+net manualswapcheck or.drawbar.in0
+net air_in_valve motion.digital-out-04 or.drawbar.in1
+
+#net manualswapcheck or.coneclean.in0
+#net dust_remove_valve motion.digital-out-05 or.coneclean.in1
+
+
+net motion.digital-out-00 <= or.drawbar.out
+net motion.digital-out-01 <= or.coneclean.out
+
+
+
+# ---------- MANUAL TOOLCHANGE----------
+loadusr -W hal_manualtoolchange
+net tool-change iocontrol.0.tool-change => hal_manualtoolchange.change
+net tool-changed iocontrol.0.tool-changed <= hal_manualtoolchange.changed
+net tool-number iocontrol.0.tool-prep-number => hal_manualtoolchange.number
+net tool-prepare-loopback iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
+
+
+# ---------- CAROUSEL TOOL CHANGER  ----------
+
+# Drive Setup
+setp        [HMOT](CARD0).stepgen.03.dirsetup           [ATC]DIRSETUP
+setp        [HMOT](CARD0).stepgen.03.dirhold            [ATC]DIRHOLD
+setp        [HMOT](CARD0).stepgen.03.steplen            [ATC]STEPLEN
+setp        [HMOT](CARD0).stepgen.03.stepspace          [ATC]STEPSPACE
+setp        [HMOT](CARD0).stepgen.03.position-scale     [ATC]STEP_SCALE
+setp        [HMOT](CARD0).stepgen.03.step_type          0
+setp        [HMOT](CARD0).stepgen.03.control-type       1
+setp        [HMOT](CARD0).stepgen.03.enable             1
+setp        [HMOT](CARD0).stepgen.03.maxaccel           [ATC]STEPGEN_MAXACCEL
+setp        [HMOT](CARD0).stepgen.03.maxvel             [ATC]STEPGEN_MAXVEL
+
+setp        carousel.0.fwd-dc       [ATC]FWD_DC
+setp        carousel.0.hold-dc      [ATC]HOLD_DC
+setp        carousel.0.rev-dc       [ATC]REV_DC
+setp        carousel.0.rev-pulse    [ATC]REV_PULSE
+setp        carousel.0.align-dc    [ATC]ALIGN_DC
+setp        carousel.0.decel-time    [ATC]DECEL_TIME
+setp 		carousel.0.home-offset 100
+
+# Carousel Setup
+# Signals
+# Enable is required to turn the whole thing on
+#net        carenable         carousel.0.enable 
+# Index = home
+net         DI-ATC-home    carousel.0.sense-0
+# Pocket = pocket signal
+net         DI-ATC-pocket    carousel.0.sense-1
+
+# Setup Write Signales
+net         carousel_enable     carousel.0.enable     
+net         carousel_jog-fwd    carousel.0.jog-fwd
+net         carousel_jog-rev    carousel.0.jog-rev
+net         carousel_force-unhome carousel.0.unhome
+net         carousel_motor-vel  carousel.0.motor-vel    [HMOT](CARD0).stepgen.03.velocity-cmd
+net         carousel_pocket-number  carousel.0.pocket-number 
+#conv-s32-float.atc-pocket.in
+# Setup READ Signals
+net         carousel_homed      carousel.0.homed
+net         carousel_ready      carousel.0.ready
+net         carousel_current-position carousel.0.current-position conv-s32-float.atc-pocket.in
+# Trigger homing of atc with homing of machine
+net         carousel_home-auto halui.mdi-command-17 joint.1.homed
