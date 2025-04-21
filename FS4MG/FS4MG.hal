@@ -10,6 +10,9 @@ loadrt hm2_eth board_ip="10.10.10.10" config="num_encoders=1 num_pwmgens=0 num_s
 setp    hm2_7i76e.0.watchdog.timeout_ns 5000000
 loadrt pid names=pid.x,pid.y,pid.z,pid.s
 
+loadrt carousel pockets=[ATC]POCKETS encoding=index num_sense=2 dir=2
+addf carousel.0 servo-thread
+
 addf hm2_7i76e.0.read          servo-thread
 addf motion-command-handler   servo-thread
 addf motion-controller        servo-thread
