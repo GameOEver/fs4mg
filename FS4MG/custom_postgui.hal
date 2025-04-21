@@ -1,0 +1,43 @@
+# Include your custom_postgui HAL commands here
+# This file will not be overwritten when you run PNCconf again
+loadusr -W mb2hal config=sinamics_mb2hal.ini
+
+ net true-rpm    =>    qtpyvcp.spindle_encoder_rpm.in
+# net spindle-at-speed        =>    pyvcp.spindle-at-speed-led
+# net spindle-current-scaled scale-current.out => pyvcp.spindle-current
+
+
+# mb2hal spindle communication
+
+net STW-command				conv-STW.out => mb2hal.w_STW.00
+net HSW-command				scale-spindle.out => mb2hal.w_HSW.00
+
+net spindle-info-current    <= mb2hal.run_info.01.float
+net spindle-current-scaled => qtpyvcp.spindle-load-indicator.in-f
+setp qtpyvcp.spindle-load-indicator.max-val 100
+
+net spindle-info-power      <= mb2hal.run_info.03.float
+net spindle-info-rpm        <= mb2hal.run_info.00.float
+
+
+# *** Add Time ***
+loadrt time
+loadrt not
+
+addf time.0 servo-thread
+addf not.0 servo-thread
+
+net prog-running not.0.in <= halui.program.is-idle
+net cycle-timer time.0.start <= not.0.out
+net cycle-seconds qtpyvcp.timerseconds.in <= time.0.seconds
+net cycle-minutes qtpyvcp.timerminutes.in <= time.0.minutes
+net cycle-hours qtpyvcp.timerhours.in <= time.0.hours
+
+# Reduce acc for jogging with handwheel
+setp axis.x.jog-accel-fraction 0.3
+setp axis.y.jog-accel-fraction 0.3
+setp axis.z.jog-accel-fraction 0.2
+
+net ntc-scale-in            rs485ntcscale.in                              mb2hal.rs485ntc.00.float
+setp rs485ntcscale.gain                           0.1
+net spindle-temp rs485ntcscale.out
