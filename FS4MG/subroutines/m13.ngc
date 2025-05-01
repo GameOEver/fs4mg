@@ -14,7 +14,7 @@ G4 P0.1
 (print, m114)
 M114
 ; Readd pin to wait for signal homed, max 10s
-M66 P00 L1 Q15
+M66 P10 L1 Q15
 O120 if [#5399 LT 0]
     (abort, ATC Error: Failed to home)
 O120 endif

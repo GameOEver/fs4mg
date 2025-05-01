@@ -163,7 +163,7 @@ o<80> endif
 
 
 ;-30- Save tool number of old and new tool
-#<tool_in_spindle> = #<_current_tool>   ;Value from system variable
+#<tool_in_spindle> = 999   ;Value from system variable  ;#<_current_tool> war statt 999
 #<tool_selected> = #<_selected_tool>    ;Value from system variable
 (LOG, Automatic: #<auto>)
 (LOG, Parameters: #<para>)

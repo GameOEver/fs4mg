@@ -1,33 +1,14 @@
 # Halshow settings
 # This file is generated automatically.
-wm geometry . 1083x662+863+158
-placeFrames 0.28291316526610644
-set ::ratio 0.28291316526610644
+wm geometry . 819x997+882+27
+placeFrames 0.2899628252788104
+set ::ratio 0.2899628252788104
 set ::old_w_leftf 160
 set ::watchlist {
-    sig+probe-in
-    sig+debounce-in
-    sig+probe-tool
-    sig+spindle-info-current
-    pin+scale-current.in
-    pin+scale-current.gain
-    pin+scale-current.offset
-    pin+scale-current.out
-    sig+spindle-info-power
-    pin+offset.temp.offset
-    pin+offset.temp.fb-in
-    pin+offset.temp.fb-out
-    pin+offset.ntc.fb-in
-    pin+offset.ntc.fb-out
-    sig+min-home-x
     sig+spindle-air-in
     sig+spindle-air-return
     sig+spindle-air-seal
     sig+spindle-dust-remove
-    sig+tool_clamped
-    sig+tool_released
-    pin+mb2hal.rs485ntc.00.float
-    pin+mb2hal.rs485ntc.num_errors
     sig+spindle-temp
 }
 set ::workmode watchhal

@@ -4,7 +4,7 @@
 # overwritten when you run PNCconf again
 
 loadrt [KINS]KINEMATICS
-loadrt [EMCMOT]EMCMOT servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS num_dio=5
+loadrt [EMCMOT]EMCMOT servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS num_dio=15
 loadrt hostmot2
 loadrt hm2_eth board_ip="10.10.10.10" config="num_encoders=1 num_pwmgens=0 num_stepgens=5 sserial_port_0=10xxxxxx" 
 setp    hm2_7i76e.0.watchdog.timeout_ns 5000000
@@ -12,6 +12,9 @@ loadrt pid names=pid.x,pid.y,pid.z,pid.s
 
 loadrt carousel pockets=[ATC]POCKETS encoding=index num_sense=2 dir=2
 addf carousel.0 servo-thread
+
+loadrt conv_s32_float names=conv-s32-float.atc-pocket
+addf conv-s32-float.atc-pocket servo-thread
 
 addf hm2_7i76e.0.read          servo-thread
 addf motion-command-handler   servo-thread
@@ -71,13 +74,13 @@ net debounce-in <=  hm2_7i76e.0.7i76.0.0.input-08-not => debounce.0.0.in
 net probe-in debounce.0.0.out
 
 # PROBE
-loadrt or2 count=1
-addf or2.0 servo-thread
+loadrt or2 names=or.probe
+addf or.probe servo-thread
 
 
-net probe-in        =>  or2.0.in0
-net tls-in          =>  or2.0.in1
-net probe-tool          or2.0.out
+net probe-in        =>  or.probe.in0
+net tls-in          =>  or.probe.in1
+net probe-tool          or.probe.out
 net probe-tool      =>  motion.probe-input
 
 
@@ -85,10 +88,10 @@ net probe-tool      =>  motion.probe-input
 net tls-in       <=  hm2_7i76e.0.7i76.0.0.input-09-not
 
 # --- DI 10 Tool-released ---
-net tool_released motion.digital-in-00 <= hm2_7i76e.0.7i76.0.0.input-10
+net DI-ATC-drawbar-sensor motion.digital-in-00 <= hm2_7i76e.0.7i76.0.0.input-10
 
 # --- DI 11 Tool-Clamped ---
-net tool_clamped motion.digital-in-01 <= hm2_7i76e.0.7i76.0.0.input-11
+net DI-ATC-tool-sensor motion.digital-in-01 <= hm2_7i76e.0.7i76.0.0.input-11
 
 # --- DI 12 Machine power ---
 #net external-machine-power-on halui.machine.on <= hm2_7i76e.0.7i76.0.0.input-12
@@ -104,19 +107,28 @@ net tool_clamped motion.digital-in-01 <= hm2_7i76e.0.7i76.0.0.input-11
 net manual-tool-release motion.digital-in-02 <= hm2_7i76e.0.7i76.0.0.input-15
 
 # --- DI 16 ATC Home Sensor ---
-net         DI-ATC-home  <= hm2_7i76e.0.7i76.0.0.input-16
+net         DI-ATC-home  <= hm2_7i76e.0.7i76.0.0.input-16-not
 
 # --- DI 17 ATC pocket Sensor (aligned) ---
-net         DI-ATC-pocket    <= hm2_7i76e.0.7i76.0.0.input-17
+net         DI-ATC-pocket    <= hm2_7i76e.0.7i76.0.0.input-17-not
 
 # --- DI 18 ATC tool presence ---
-net         DI-ATC-toolpresence    <= hm2_7i76e.0.7i76.0.0.input-18
+net         DI-ATC-toolpresence    <= hm2_7i76e.0.7i76.0.0.input-18-not
 
 # --- DI 19 ATC Cover open ---
 #net         ###    <= hm2_7i76e.0.7i76.0.0.input-19
 
 # --- DI 20 ATC Cover closed ---
 #net         ###    <= hm2_7i76e.0.7i76.0.0.input-20
+
+
+
+net     carousel_homed          motion.digital-in-10
+net     carousel_ready          motion.digital-in-11
+net     DI-ATC-toolpresence     motion.digital-in-12
+#net     DI-ATC-tool-sensor      motion.digital-in-01
+#net     DI-ATC-drawbar-sensor   motion.digital-in-00
+
 
 
 # ---Digital Outputs---
@@ -127,10 +139,10 @@ net coolant-mist  =>     hm2_7i76e.0.7i76.0.0.output-00
 net machine-is-enabled  =>     hm2_7i76e.0.7i76.0.0.output-01
 
 # --- DO 02 Spindle-air-in ---
-net spindle-air-in motion.digital-out-00 => hm2_7i76e.0.7i76.0.0.output-02
+net spindle-air-in => hm2_7i76e.0.7i76.0.0.output-02
 
 # --- DO 03 Spindle-dust-remove ---
-net spindle-dust-remove motion.digital-out-01 => hm2_7i76e.0.7i76.0.0.output-03
+net spindle-dust-remove => hm2_7i76e.0.7i76.0.0.output-03
 
 # --- DO 04 Spindle-air-return ---
 net spindle-air-return motion.digital-out-02 => hm2_7i76e.0.7i76.0.0.output-04
@@ -138,12 +150,12 @@ net spindle-air-return motion.digital-out-02 => hm2_7i76e.0.7i76.0.0.output-04
 # --- DO 05 Spindle-air-seal ---
 net spindle-air-seal motion.digital-out-03 => hm2_7i76e.0.7i76.0.0.output-05
 
-# --- DO 06 MQL ---
+# --- DO 06 TLS-CLEAN ---
 net tls-clean motion.digital-out-04 => hm2_7i76e.0.7i76.0.0.output-06
 
 # --- DO 07 Manual Toolchange allowed light ---
-net light-manual-toolchange-allowed  => hm2_7i76e.0.7i76.0.0.output-07
-
+#net light-manual-toolchange-allowed motion.digital-out-05  => hm2_7i76e.0.7i76.0.0.output-07
+# moved to atc.hal
 
 #*******************
 #  AXIS X JOINT 0

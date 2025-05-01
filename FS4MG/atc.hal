@@ -8,29 +8,37 @@
 
 # ---------- MANUAL TOOL CHANGE  ----------
 
-#MAN_BUTTON_CHECK
-#invert spindlenabled
-#net spindle.enabled not.spindlecheck.in
-#net spindle-enabled-not not.spindlecheck.out
-
-#net DI-ATC-man-button and.spindlecheck.in0
-#net spindle-enabled-not and.spindlecheck.in1
-#net manualswapcheck and.spindlecheck.out
-
-
-#net dout-04  =>   hm2_7i96s.0.7i84.0.0.output-00    #AIR_IN_Ventil1
-#net dout-05 =>    hm2_7i96s.0.7i84.0.0.output-03 #DUST_REMOVE_Ventil4
+# CHECK SPINDLE STOPPED
+loadrt near names=spindle-is-0-rpm
+addf spindle-is-0-rpm servo-thread
+loadrt and2 names=and-spindle-stopped,and.spindlecheck
+addf and-spindle-stopped servo-thread
+addf and.spindlecheck servo-thread
+loadrt or2 names=or.drawbar,or.coneclean
+addf or.drawbar servo-thread
+addf or.coneclean servo-thread
 
 
-#net manualswapcheck or.drawbar.in0
-#net air_in_valve motion.digital-out-04 or.drawbar.in1
+setp spindle-is-0-rpm.scale 1.00
+setp spindle-is-0-rpm.in1 0.00
+net true-rpm => spindle-is-0-rpm.in2
 
-#net manualswapcheck or.coneclean.in0
-#net dust_remove_valve motion.digital-out-05 or.coneclean.in1
+net spindle-near-stopped spindle-is-0-rpm.out  and-spindle-stopped.in0
+net spindle-at-speed and-spindle-stopped.in1
+net spindle-is-stopped and-spindle-stopped.out hm2_7i76e.0.7i76.0.0.output-07
 
+net manual-tool-release and.spindlecheck.in0
+net spindle-is-stopped and.spindlecheck.in1
+net manualswapcheck and.spindlecheck.out
 
-#net motion.digital-out-00 <= or.drawbar.out
-#net motion.digital-out-01 <= or.coneclean.out
+net manualswapcheck or.drawbar.in0
+net air_in_valve motion.digital-out-00 or.drawbar.in1
+
+net manualswapcheck or.coneclean.in0
+net dust_remove_valve motion.digital-out-01 or.coneclean.in1
+
+net spindle-air-in <= or.drawbar.out
+net spindle-dust-remove <= or.coneclean.out
 
 
 

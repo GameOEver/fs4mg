@@ -92,6 +92,18 @@ O99 else if [#<load_spindle_tool_number_3> EQ #5204]
 O99 else if [#<load_spindle_tool_number_3> EQ #5205]
   (MSG, Load Tool ATC: Tool aready stored in carousel pocket 16)
   #<check_in_carousel> = 1
+O99 else if [#<load_spindle_tool_number_3> EQ #5206]
+  (MSG, Load Tool ATC: Tool aready stored in carousel pocket 17)
+  #<check_in_carousel> = 1
+O99 else if [#<load_spindle_tool_number_3> EQ #5207]
+  (MSG, Load Tool ATC: Tool aready stored in carousel pocket 18)
+  #<check_in_carousel> = 1
+ O99 else if [#<load_spindle_tool_number_3> EQ #5208]
+  (MSG, Load Tool ATC: Tool aready stored in carousel pocket 19)
+  #<check_in_carousel> = 1
+O99 else if [#<load_spindle_tool_number_3> EQ #5209]
+  (MSG, Load Tool ATC: Tool aready stored in carousel pocket 20)
+  #<check_in_carousel> = 1
 O99 else if [#<load_spindle_tool_number_3> EQ #<probe_tool_number_ini>]
   S0 M5
   (MSG, Load Tool ATC: Not allowed to store probe in atc)
@@ -200,8 +212,8 @@ o132 endif
 M114
 ;Move spindle to safe forward position
 G53 G0 Z0
-#<safey> = [#<_ini[ATC]ATC_POCKET_Y> - #<_ini[ATC]ATC_FRONT_SAFE_Y>]
-G53 G0 X#<_ini[ATC]ATC_POCKET_X> Y#<safey> 
+#<safex> = [#<_ini[ATC]ATC_POCKET_X> - #<_ini[ATC]ATC_LEFT_SAFE_X>]
+G53 G0 Y#<_ini[ATC]ATC_POCKET_Y> X#<safex>
 ;Wait for Ready
 M66 P #<_ini[ATC]ATC_READY> L3 Q10 
 O140 if [#5399 EQ 0]
@@ -260,6 +272,14 @@ o<200> else if [#<open_pocket> EQ 15]
   #5204 = #<load_spindle_tool_number_3>
 o<200> else if [#<open_pocket> EQ 16]
   #5205 = #<load_spindle_tool_number_3>
+o<200> else if [#<open_pocket> EQ 17]
+  #5206 = #<load_spindle_tool_number_3>
+o<200> else if [#<open_pocket> EQ 18]
+  #5207 = #<load_spindle_tool_number_3>
+o<200> else if [#<open_pocket> EQ 19]
+  #5208 = #<load_spindle_tool_number_3>
+o<200> else if [#<open_pocket> EQ 20]
+  #5209 = #<load_spindle_tool_number_3>
 o<200> endif
 (print, Tool #<load_spindle_tool_number_3> successfully placed at pocket #<open_pocket> )
 M115

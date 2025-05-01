@@ -149,7 +149,7 @@ O100 ELSE
         ;Move spindle to safe forward position
         G53 G0 Z0
         #<safex> = [#<_ini[ATC]ATC_POCKET_X> - #<_ini[ATC]ATC_LEFT_SAFE_X>]
-        G53 G0 Y#<_ini[ATC]ATC_POCKET_X> X#<safex> 
+        G53 G0 Y#<_ini[ATC]ATC_POCKET_Y> X#<safex>
         ;Wait for Ready
         M66 P #<_ini[ATC]ATC_READY> L3 Q10 
         O140 if [#5399 EQ 0]
@@ -208,18 +208,14 @@ O200 IF [#<new_atc_pocket> EQ 0]
         (abort, M6: No tool in spindle after M6)
     O220 ENDIF
 
-     M64 P2
-     G4 P5
-     M65 P2
-
     ; We don't trust external tools - send to tool measurement
     O230 IF[#<new_tool> EQ #<probe_tool_number_ini>]
         S0 M5
         (print, M6: Measure tool lenght - Probe)
-        O<tool_touch_off> call
+        o<tool_touch_off> call
     O230 ELSE
         (print, M6: Measure tool lenght - no probe)
-        O<tool_touch_off> call
+        o<tool_touch_off> call
     O230 ENDIF
 
 O200 ELSE
@@ -276,13 +272,19 @@ O200 ELSE
 
     ;call subroutine to grab tool pocket 
     o<remove_tool_pocket> call
-
+    M64P2
+    G1 G91 Z10 F #<_ini[ATC]ATC_RELEASE_SPEED>
+    G90
+    G4 P0.1
     M66 P #<_ini[ATC]ATC_TOOLPRESENCE> L0 
     O270 if [#5399 EQ 1]
+        M65P2
         (abort, M6:  Tool still in pocket after pick up!)
     O270 endif
     M61 Q#<new_tool>
     G53G0Z0
+    M65P2
+    o<tool_touch_off> call
 O200 ENDIF
 O199 ENDIF
 T #<new_tool>  G43  H #<new_tool>     (enable tool length offset)
