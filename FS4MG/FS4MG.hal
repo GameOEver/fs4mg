@@ -157,6 +157,12 @@ net tls-clean motion.digital-out-04 => hm2_7i76e.0.7i76.0.0.output-06
 #net light-manual-toolchange-allowed motion.digital-out-05  => hm2_7i76e.0.7i76.0.0.output-07
 # moved to atc.hal
 
+# --- DO 08 Open ATC Cover ---
+net tls-clean motion.digital-out-06 => hm2_7i76e.0.7i76.0.0.output-08
+
+# --- DO 09 Close ATC Cover ---
+net tls-clean motion.digital-out-07 => hm2_7i76e.0.7i76.0.0.output-09
+
 #*******************
 #  AXIS X JOINT 0
 #*******************
