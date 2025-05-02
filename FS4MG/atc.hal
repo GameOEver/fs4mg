@@ -25,7 +25,7 @@ net true-rpm => spindle-is-0-rpm.in2
 
 net spindle-near-stopped spindle-is-0-rpm.out  and-spindle-stopped.in0
 net spindle-at-speed and-spindle-stopped.in1
-net spindle-is-stopped and-spindle-stopped.out hm2_7i76e.0.7i76.0.0.output-07
+net spindle-is-stopped and-spindle-stopped.out hm2_7i76e.0.7i76.0.0.output-07 motion.digital-in-05
 
 net manual-tool-release and.spindlecheck.in0
 net spindle-is-stopped and.spindlecheck.in1
