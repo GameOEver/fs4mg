@@ -20,14 +20,14 @@ o<400> if [#<_task> EQ 1]
 #<tool_touch_y_coords> = 50          ;Position of the length button in Y
 #<tool_touch_z_coords> = -140          ;Position above the length button in Z
 #<use_tool_table> = 1               ;If "1" the machine uses the tool table for positioning the tool over the 
-#<tool_min_dis> = 20                ;Distance, when measuring a known tool again, between the touch plate and the tool.
+#<tool_min_dis> = 5               ;Distance, when measuring a known tool again, between the touch plate and the tool.
 
 ;-OPTIONS-
 ;--Generally--
 #<brake_after_M600> = 0	      	    ;If ">0" wait for confirmation that the program may continue to work after the measurement. 1=M00, 2=M01
 #<go_back_to_start_pos> = 0         ;If "1" the machine returns to the position where the routine was started.
 #<spindle_stop_m> = 500               ;M-Code number to stop the spindle default 5 (M5), option 500 (M500).
-#<disable_pre_pos> = 0              ;Disable the pre change positioning at g30 position.
+#<disable_pre_pos> = 1              ;Disable the pre change positioning at g30 position.
 #<addreps> = 1                      ;Number of extra repetitions if fast probe failed.
 #<lasttry> = 1                      ;If "1" the machine do a probing at the last repetition without the tool table. #<addreps> must be min "1".
 #<clean_tls> = 1		    ;If "1" the valve for cleaning the tool length sensor wirll be activated just before measuring the tool.
