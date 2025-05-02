@@ -107,19 +107,17 @@ net DI-ATC-tool-sensor motion.digital-in-01 <= hm2_7i76e.0.7i76.0.0.input-11
 net manual-tool-release motion.digital-in-02 <= hm2_7i76e.0.7i76.0.0.input-15
 
 # --- DI 16 ATC Home Sensor ---
-net         DI-ATC-home  <= hm2_7i76e.0.7i76.0.0.input-16-not
+net DI-ATC-home  <= hm2_7i76e.0.7i76.0.0.input-16-not
 
 # --- DI 17 ATC pocket Sensor (aligned) ---
-net         DI-ATC-pocket    <= hm2_7i76e.0.7i76.0.0.input-17-not
+net DI-ATC-pocket    <= hm2_7i76e.0.7i76.0.0.input-17-not
 
 # --- DI 18 ATC tool presence ---
-net         DI-ATC-toolpresence    <= hm2_7i76e.0.7i76.0.0.input-18-not
+net DI-ATC-toolpresence    <= hm2_7i76e.0.7i76.0.0.input-18-not
 
-# --- DI 19 ATC Cover open ---
-#net         ###    <= hm2_7i76e.0.7i76.0.0.input-19
+# --- DI 19 Air Pressure Switch ---
+net DI-PRESSURE-SWITCH  motion.digital-in-04  <= hm2_7i76e.0.7i76.0.0.input-19
 
-# --- DI 20 ATC Cover closed ---
-#net         ###    <= hm2_7i76e.0.7i76.0.0.input-20
 
 
 
