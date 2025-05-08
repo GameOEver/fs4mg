@@ -1,6 +1,6 @@
-T1   P0   D+6.000000 Z+18.972255 ; 6mm 2f dlc garant
+T1   P0   D+6.000000 Z+18.948755 ; 6mm 2f dlc garant
 T2   P0   D+6.000000 Z+21.811409 ; 6mm 1F dlc
-T3   P0   D+4.000000 Z+23.351744 ; 4mm 1f dlc sl15
+T3   P0   D+4.000000 Z+23.330911 ; 4mm 1f dlc sl15
 T4   P0   D+8.000000 Z+29.062959 ; 8mm 3f dlc
 T8   P0   D+8.000000 Z+22.567978 ; 8mm 3f chamfer
 T9   P0   D+6.000000 Z+24.396000 ; 6mm 1f garant
@@ -14,6 +14,7 @@ T18  P0   D+4.000000 ; 4mm ball nose
 T19  P0   D+2.000000 Z+7.145204 ; 2mm 2F
 T20  P0   D+5.900000 Z+21.680375 ; m8 dlc
 T21  P0   D+4.700000 Z+16.486292 ; m6 bohrgewinde
+T31  P0   D+25.000000 Z+36.719967 ; eap 300r 25mm 3t
 T32  P0   D+20.000000 Z+36.551208 ; bap300r 20mm pcd
 T41  P0   D+3.300000 Z+13.978991 ; 3.3mm tisin vhm bohrer
 T42  P0   D+4.200000 Z+16.428475 ; 4.2mm vhm drill
@@ -24,5 +25,5 @@ T46  P11  D+2.500000 Z+11.688047 ; 2.5mm vhm bohrer
 T47  P0   D+3.300000 Z+11.349032 ; 3.3mm vhm bohrer
 T51  P0   D+5.000000 Z+18.038542 ; HAimer 5mm
 T98  P0   D+19.000000 Z+26.675056 ; buerste
-T99  P0   D+3.000000 Z+53.079503 ; 3d probe
-T31  P0   D+25.000000 Z+36.719967 ; eap 300r 25mm 3t
+T99  P0   D+3.000000 Z+53.061961 ; 3d probe
+T6   P0   D+4.000000 Z+14.632375 ; 4mm 3f dlc

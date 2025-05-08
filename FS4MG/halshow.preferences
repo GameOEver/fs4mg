@@ -1,6 +1,6 @@
 # Halshow settings
 # This file is generated automatically.
-wm geometry . 819x997+882+27
+wm geometry . 819x997+943+43
 placeFrames 0.2899628252788104
 set ::ratio 0.2899628252788104
 set ::old_w_leftf 160
@@ -10,6 +10,18 @@ set ::watchlist {
     sig+spindle-air-seal
     sig+spindle-dust-remove
     sig+spindle-temp
+    pin+motion.digital-out-00
+    pin+motion.digital-out-01
+    pin+motion.digital-out-02
+    pin+motion.digital-out-03
+    pin+motion.digital-out-04
+    pin+motion.digital-out-05
+    sig+tls-clean
+    sig+DI-PRESSURE-SWITCH
+    sig+atc-close-cover
+    sig+atc-open-cover
+    pin+motion.digital-out-06
+    pin+motion.digital-out-07
 }
 set ::workmode watchhal
 set ::watchInterval 100
