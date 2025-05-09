@@ -22,6 +22,7 @@ set ::watchlist {
     sig+atc-open-cover
     pin+motion.digital-out-06
     pin+motion.digital-out-07
+    pin+motion.digital-in-05
 }
 set ::workmode watchhal
 set ::watchInterval 100
