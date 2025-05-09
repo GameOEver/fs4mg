@@ -31,6 +31,11 @@ o<load_tool_atc> sub
 #19 = #5208
 #20 = #5209
 
+M66 P4 L0
+O11 IF [#5399 EQ 0]
+        (abort, No airpressure!)
+O11 ENDIF
+
 ; Determine if current_tool is alreay in carousel
 #<tool_pocket> = 0
 #700 = #<atc_size> ;assign test parameter the number of pockets in the carousel

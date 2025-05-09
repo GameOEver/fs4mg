@@ -37,6 +37,11 @@ O10 IF [#<_task> EQ 0]
 O10 return [999]
 O10 ENDIF
 
+M66 P4 L0
+O11 IF [#5399 EQ 0]
+        (abort, No airpressure!)
+O11 ENDIF
+
 ; checks if tool in the spindle is same as requested
 O20 IF [#<current_tool> EQ #<new_tool>] 
     (print, M6: No toolchange necessary: Old=New Tool)
