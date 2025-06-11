@@ -23,6 +23,10 @@ set ::watchlist {
     pin+motion.digital-out-06
     pin+motion.digital-out-07
     pin+motion.digital-in-05
+    pin+hm2_7i76e.0.write.time
+    pin+hm2_7i76e.0.read.time
+    pin+halui.estop.activate
+    pin+motion.is-all-homed
 }
 set ::workmode watchhal
 set ::watchInterval 100

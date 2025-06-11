@@ -40,4 +40,4 @@ setp axis.z.jog-accel-fraction 0.2
 
 net ntc-scale-in            rs485ntcscale.in                              mb2hal.rs485ntc.00.float
 setp rs485ntcscale.gain                           0.1
-net spindle-temp rs485ntcscale.out
+net spindle-temp rs485ntcscale.out  qtpyvcp.spindle-temp-indicator.in-f

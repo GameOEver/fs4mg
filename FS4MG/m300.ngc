@@ -3,24 +3,27 @@ o<m300> sub
 ;For spindles without feedback.
 ;Stand: 2023-12-30
 
+o<400> if [#<_task> EQ 1]
+  M66 P4 L0
+  O200 IF [#5399 EQ 0]
+          (msg, No airpressure!)
+          M0
+  O200 ENDIF
 
-M66 P4 L0
-O200 IF [#5399 EQ 0]
-        (abort, No airpressure!)
-O200 ENDIF
+  o100 if [#<_current_tool> NE 0 AND #<_current_tool> NE 99]
+    M3
+    M64P3
+    G4 P5.0
+    ;(msg, Spindle ON)
+  o100 endif
 
-o100 if [#<_current_tool> NE 0 AND #<_current_tool> NE 99]
-  M3
-  M64P3
-  G4 P5.0
-  ;(msg, Spindle ON)
-o100 endif 
-  
 
-o101 if [#<_current_tool> EQ 0 OR #<_current_tool> EQ 99]
-  (ABORT, Either no tool or probe. Turning on the Spindle could cause damage!)
-o101 endif 
+  o101 if [#<_current_tool> EQ 0 OR #<_current_tool> EQ 99]
+    (msg, Either no tool or probe. Turning on the Spindle could cause damage!)
+    M0
+  o101 endif
 
+o<400> endif
 o<m300> endsub
 
 M2 (end program)
