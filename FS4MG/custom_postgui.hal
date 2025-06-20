@@ -2,7 +2,7 @@
 # This file will not be overwritten when you run PNCconf again
 loadusr -W mb2hal config=sinamics_mb2hal.ini
 
- net true-rpm    =>    qtpyvcp.spindle_encoder_rpm.in
+ net true-rpm    =>    qtpyvcp.spindle-encoder-rpm.in
 # net spindle-at-speed        =>    pyvcp.spindle-at-speed-led
 # net spindle-current-scaled scale-current.out => pyvcp.spindle-current
 

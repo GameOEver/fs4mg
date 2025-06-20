@@ -9,7 +9,6 @@ set ::watchlist {
     sig+spindle-air-return
     sig+spindle-air-seal
     sig+spindle-dust-remove
-    sig+spindle-temp
     pin+motion.digital-out-00
     pin+motion.digital-out-01
     pin+motion.digital-out-02
@@ -27,6 +26,9 @@ set ::watchlist {
     pin+hm2_7i76e.0.read.time
     pin+halui.estop.activate
     pin+motion.is-all-homed
+    pin+hm2_7i76e.0.packet-error
+    pin+hm2_7i76e.0.packet-error-total
+    pin+rs485ntcscale.in
 }
 set ::workmode watchhal
 set ::watchInterval 100

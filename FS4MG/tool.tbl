@@ -1,4 +1,4 @@
-T1   P0   D+6.000000 Z+18.967277 ; 6mm 2f dlc garant
+T1   P0   D+6.000000 Z+18.985735 ; 6mm 2f dlc garant
 T2   P0   D+6.000000 Z+21.811409 ; 6mm 1F dlc
 T3   P0   D+4.000000 Z+23.326702 ; 4mm 1f dlc sl15
 T4   P0   D+6.000000 Z+17.265361 ; 6mm 4f dlc garant
@@ -25,7 +25,7 @@ T44  P0   D+2.900000 Z+10.688305 ; 2.9mm vhm bohrer
 T45  P0   D+3.200000 Z+11.538232 ; 3.2mm vhm bohrer
 T46  P11  D+2.500000 Z+11.685123 ; 2.5mm vhm bohrer
 T47  P0   D+3.300000 Z+11.349032 ; 3.3mm vhm bohrer
-T49  P0   D+2.700000 Z+15.638042 ; 2.7mm vhm bohrer
+T49  P0   D+2.700000 Z+15.664334 ; 2.7mm vhm bohrer
 T51  P0   D+5.000000 Z+18.038542 ; HAimer 5mm
 T98  P0   D+19.000000 Z+26.675056 ; buerste
 T99  P0   D+3.000000 Z+53.072469 ; 3d probe
