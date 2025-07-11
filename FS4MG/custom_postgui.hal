@@ -34,9 +34,9 @@ net cycle-minutes qtpyvcp.timerminutes.in <= time.0.minutes
 net cycle-hours qtpyvcp.timerhours.in <= time.0.hours
 
 # Reduce acc for jogging with handwheel
-setp axis.x.jog-accel-fraction 0.3
-setp axis.y.jog-accel-fraction 0.3
-setp axis.z.jog-accel-fraction 0.2
+setp axis.x.jog-accel-fraction 0.5
+setp axis.y.jog-accel-fraction 0.5
+setp axis.z.jog-accel-fraction 0.3
 
 net ntc-scale-in            rs485ntcscale.in                              mb2hal.rs485ntc.00.float
 setp rs485ntcscale.gain                           0.1

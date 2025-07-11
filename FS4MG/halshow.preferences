@@ -1,8 +1,8 @@
 # Halshow settings
 # This file is generated automatically.
-wm geometry . 819x997+943+43
-placeFrames 0.2899628252788104
-set ::ratio 0.2899628252788104
+wm geometry . 819x794+71+95
+placeFrames 0.29120198265179675
+set ::ratio 0.29120198265179675
 set ::old_w_leftf 160
 set ::watchlist {
     sig+spindle-air-in
@@ -29,6 +29,23 @@ set ::watchlist {
     pin+hm2_7i76e.0.packet-error
     pin+hm2_7i76e.0.packet-error-total
     pin+rs485ntcscale.in
+    pin+hm2_7i76e.0.encoder.00.count
+    pin+hm2_7i76e.0.gpio.016.in
+    pin+hm2_7i76e.0.7i76.0.0.input-16
+    pin+hm2_7i76e.0.7i76.0.0.input-17
+    pin+hm2_7i76e.0.7i76.0.0.input-18
+    pin+hm2_7i76e.0.7i76.0.0.input-19
+    pin+hm2_7i76e.0.7i76.0.0.input-24
+    pin+hm2_7i76e.0.7i76.0.0.input-25
+    pin+hm2_7i76e.0.7i76.0.0.input-26
+    pin+hm2_7i76e.0.7i76.0.0.input-27
+    pin+hm2_7i76e.0.7i76.0.0.input-28
+    pin+hm2_7i76e.0.7i76.0.0.input-29
+    pin+hm2_7i76e.0.0.debug
+    pin+hm2_7i76e.0.7i76.0.0.enc0.count
+    pin+axis.x.jog-accel-fraction
+    pin+axis.y.jog-accel-fraction
+    pin+axis.z.jog-accel-fraction
 }
 set ::workmode watchhal
 set ::watchInterval 100

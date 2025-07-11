@@ -6,7 +6,7 @@
 loadrt [KINS]KINEMATICS
 loadrt [EMCMOT]EMCMOT servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS num_dio=15
 loadrt hostmot2
-loadrt hm2_eth board_ip="10.10.10.10" config="num_encoders=1 num_pwmgens=0 num_stepgens=5 sserial_port_0=10xxxxxx" 
+loadrt hm2_eth board_ip="10.10.10.10" config="num_encoders=1 num_pwmgens=0 num_stepgens=5 sserial_port_0=20xxxxxx" 
 setp    hm2_7i76e.0.watchdog.timeout_ns 5000000
 loadrt pid names=pid.x,pid.y,pid.z,pid.s
 
@@ -106,17 +106,17 @@ net DI-ATC-tool-sensor motion.digital-in-01 <= hm2_7i76e.0.7i76.0.0.input-11
 # --- DI 15 Spindle manual Tool release ---
 net manual-tool-release motion.digital-in-02 <= hm2_7i76e.0.7i76.0.0.input-15
 
-# --- DI 16 ATC Home Sensor ---
-net DI-ATC-home  <= hm2_7i76e.0.7i76.0.0.input-16-not
+# --- DI 20 ATC Home Sensor ---
+net DI-ATC-home  <= hm2_7i76e.0.7i76.0.0.input-20-not
 
-# --- DI 17 ATC pocket Sensor (aligned) ---
-net DI-ATC-pocket    <= hm2_7i76e.0.7i76.0.0.input-17-not
+# --- DI 21 ATC pocket Sensor (aligned) ---
+net DI-ATC-pocket    <= hm2_7i76e.0.7i76.0.0.input-21-not
 
-# --- DI 18 ATC tool presence ---
-net DI-ATC-toolpresence    <= hm2_7i76e.0.7i76.0.0.input-18-not
+# --- DI 22 ATC tool presence ---
+net DI-ATC-toolpresence    <= hm2_7i76e.0.7i76.0.0.input-22-not
 
-# --- DI 19 Air Pressure Switch ---
-net DI-PRESSURE-SWITCH  motion.digital-in-04  <= hm2_7i76e.0.7i76.0.0.input-19
+# --- DI 23 Air Pressure Switch ---
+net DI-PRESSURE-SWITCH  motion.digital-in-04  <= hm2_7i76e.0.7i76.0.0.input-23
 
 
 
