@@ -113,9 +113,9 @@ O10 IF [#<_task> EQ 1]
             G53 G0 X[#<_ini[MTC_POS]X>] Y[#<_ini[MTC_POS]Y>]
             G53 G0 Z[#<_ini[MTC_POS]Z>]
             O121 IF [#<current_tool> EQ #<probe_tool_number_ini>]
-                ;(print, Current tool is probe - turn off pin)
-                ;M65 P #<_ini[ATC]3D_PIN>
-                ;(debug, Probe Deactivated - NO CRASH DETECTION FOR PROBE)
+                (print, Current tool is probe - turn off pin)
+                M65 P #<_ini[ATC]3D_PIN>
+                (debug, Probe Deactivated - NO CRASH DETECTION FOR PROBE)
             O121 ENDIF
 
             O122 IF [#<new_atc_pocket> EQ 0]
@@ -218,9 +218,9 @@ O10 IF [#<_task> EQ 1]
 
         ; We don't trust external tools - send to tool measurement
         O230 IF[#<new_tool> EQ #<probe_tool_number_ini>]
+            M64 P #<_ini[ATC]3D_PIN>
+            (MSG, M6: Probe Activated! - Crash Protection on)
             S0 M5
-            (print, M6: Measure tool lenght - Probe)
-            o<tool_touch_off> call
         O230 ELSE
             (print, M6: Measure tool lenght - no probe)
             o<tool_touch_off> call
