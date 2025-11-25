@@ -62,27 +62,7 @@ net max-home-z     <=  hm2_7i76e.0.7i76.0.0.input-06-not
 net estop-ext     <=  hm2_7i76e.0.7i76.0.0.input-07
 
 # --- DI 08 Probe-IN ---
-#net probe-in     <=  hm2_7i76e.0.7i76.0.0.input-08-not
-#DEBOUNCE PROBE
-
-loadrt debounce cfg=1
-addf debounce.0 servo-thread
-
-setp debounce.0.delay 3
-
-net debounce-in <=  hm2_7i76e.0.7i76.0.0.input-08-not => debounce.0.0.in
-net probe-in debounce.0.0.out
-
-# PROBE
-loadrt or2 names=or.probe
-addf or.probe servo-thread
-
-
-net probe-in        =>  or.probe.in0
-net tls-in          =>  or.probe.in1
-net probe-tool          or.probe.out
-net probe-tool      =>  motion.probe-input
-
+net probe-in     <=  hm2_7i76e.0.7i76.0.0.input-08-not
 
 # --- DI 09 TLS-IN ---
 net tls-in       <=  hm2_7i76e.0.7i76.0.0.input-09-not
@@ -160,6 +140,23 @@ net atc-open-cover motion.digital-out-06 => hm2_7i76e.0.7i76.0.0.output-08
 
 # --- DO 09 Close ATC Cover ---
 net atc-close-cover motion.digital-out-07 => hm2_7i76e.0.7i76.0.0.output-09
+
+# --- Digital - Out - activate 3D Probe ---
+net     probe-active-signal             motion.digital-out-10
+
+loadrt and2 names=and.3Dprobeactivation
+addf and.3Dprobeactivation servo-thread
+loadrt or2 names=or.probe
+addf or.probe servo-thread
+
+# activation trigger from gcode to enable 3Dprobe
+net     probe-active-signal         and.3Dprobeactivation.in0   
+net     probe-in                    and.3Dprobeactivation.in1   
+
+net     probe-2or-probe             and.3Dprobeactivation.out     => or.probe.in0       #  toggle.probe3d.in
+net     tls-in                                                    => or.probe.in1         
+# Link merged signal with both acitvation sequences 
+net     probe-signal-motion         or.probe.out            motion.probe-input
 
 #*******************
 #  AXIS X JOINT 0
@@ -371,37 +368,3 @@ net tooloffset-z  <=  motion.tooloffset.z
 
 #  ---ignore tool prepare requests---
 net tool-prepare-loopback   iocontrol.0.tool-prepare      =>  iocontrol.0.tool-prepared
-
-
-# ---------- SPINDLE NTC ----------
-# by Tilman from github/hausen8
-# NTC: 103F3950, R25: 10K 1% B: 3950K
-# analogin2: 24V fieldvoltage (since hm2_7i76e.0.7i76.0.0.fieldvoltage is too noisy)
-# analogin3: output of voltage divider (spindle NTC / 10K resistor)
-# offset.ntc is required since we don't need the output voltage but the voltage drop
-# comp.temp compares the computed temperature with a maximum temperature to trigger estop
-
-#loadusr  -W thermistor
-#loadrt comp         names=comp.temp
-#addf comp.temp      servo-thread
-
-#addf    offset.temp.update-output           servo-thread
-#setp     offset.temp.offset 0
-
-
-#setp     thermistor.0.t0-c                     [NTC]NTC_TEMP
-#setp     thermistor.0.r0                       [NTC]NTC_RES
-#setp     thermistor.0.beta                     [NTC]NTC_BETA
-#setp     thermistor.0.r-other                  [NTC]VDIV_RES
-#setp     comp.temp.in0                         [NTC]NTC_MAX_TEMP
-
-#net       AI-ATC-temp-sensor                    thermistor.0.v-thermistor
-#net       AI-SYS-fieldvoltage                   thermistor.0.v-total
-#net       SPINDLE-temp-ori                      thermistor.0.temperature-c          offset.temp.in
-#net       SPINDLE-temp                          offset.temp.out                     comp.temp.in1
-
-#net      AI-SYS-fieldvoltage                   offset.ntc.fb-in
-#net      AI-ATC-temp-sensor                    offset.ntc.offset
-#net      ntc-voltage-drop                      offset.ntc.fb-out                   thermistor.0.v-thermistor
-#loadrt  offset                              names=offset.ntc,offset.temp
-#addf    offset.ntc.update-feedback          servo-thread
