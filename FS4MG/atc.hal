@@ -94,4 +94,4 @@ net         carousel_homed      carousel.0.homed
 net         carousel_ready      carousel.0.ready
 net         carousel_current-position carousel.0.current-position conv-s32-float.atc-pocket.in
 # Trigger homing of atc with homing of machine
-net         carousel_home-auto halui.mdi-command-17 joint.1.homed
+#net         carousel_home-auto halui.mdi-command-17 joint.1.homed

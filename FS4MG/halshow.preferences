@@ -46,6 +46,12 @@ set ::watchlist {
     pin+axis.x.jog-accel-fraction
     pin+axis.y.jog-accel-fraction
     pin+axis.z.jog-accel-fraction
+    sig+max-home-z
+    sig+min-home-x
+    sig+min-home-y
+    sig+debounce-in
+    sig+probe-in
+    sig+tls-in
 }
 set ::workmode watchhal
 set ::watchInterval 100

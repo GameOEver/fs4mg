@@ -1,0 +1,11 @@
+o<m11> sub
+
+; Move carousel one forward, wrapper to include animation
+(print, o<M13> P#<p>)
+
+M111
+(DEBUG, EVAL[vcp.getWidget{"dynatc"}.rotate{1, "cw"}])
+
+o<m11> endsub [1]
+
+M2
