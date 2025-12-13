@@ -26,8 +26,8 @@ net 2008_OUT_5 lcec.0.D3.dout-5
 net 2008_OUT_6 lcec.0.D3.dout-6
 net 2008_OUT_7 lcec.0.D3.dout-7
 
-net 1088_IN_0 lcec.0.D4.din-0
-net 1088_IN_1 lcec.0.D4.din-1
+net DI-ATC-drawbar-sensor motion.digital-in-00 <= lcec.0.D4.din-0    #tool released
+net DI-ATC-tool-sensor motion.digital-in-01 <= lcec.0.D4.din-1        #tool clamped
 net 1088_IN_2 lcec.0.D4.din-2
 net 1088_IN_3 lcec.0.D4.din-3
 net 1088_IN_4 lcec.0.D4.din-4
@@ -35,7 +35,7 @@ net 1088_IN_5 lcec.0.D4.din-5
 net 1088_IN_6 lcec.0.D4.din-6
 net 1088_IN_7 lcec.0.D4.din-7
 
-net 2088_OUT_0 lcec.0.D5.dout-0
+net machine-is-enabled lcec.0.D5.dout-0      #enable drives
 net 2088_OUT_1 lcec.0.D5.dout-1
 net 2088_OUT_2 lcec.0.D5.dout-2
 net 2088_OUT_3 lcec.0.D5.dout-3
