@@ -1,0 +1,12 @@
+# Load EtherCAT configuration from XML
+loadusr -W lcec_conf ethercat-conf.xml
+
+# Load EtherCAT
+loadrt lcec
+
+# Add EtherCAT to the servo thread
+addf	lcec.read-all			servo-thread
+addf	lcec.write-all			servo-thread
+
+
+net test-ec-1 lcec.0.D5.dout-0
