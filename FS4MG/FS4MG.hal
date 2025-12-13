@@ -67,11 +67,13 @@ net probe-in     <=  hm2_7i76e.0.7i76.0.0.input-08-not
 # --- DI 09 TLS-IN ---
 net tls-in       <=  hm2_7i76e.0.7i76.0.0.input-09-not
 
-# --- DI 10 Tool-released ---
-net DI-ATC-drawbar-sensor motion.digital-in-00 <= hm2_7i76e.0.7i76.0.0.input-10
+# --- DI 10 unused ---
+#net DI-ATC-drawbar-sensor motion.digital-in-00 <= hm2_7i76e.0.7i76.0.0.input-10
+#moved to ec.hal
 
-# --- DI 11 Tool-Clamped ---
-net DI-ATC-tool-sensor motion.digital-in-01 <= hm2_7i76e.0.7i76.0.0.input-11
+# --- DI 11 unused ---
+#net DI-ATC-tool-sensor motion.digital-in-01 <= hm2_7i76e.0.7i76.0.0.input-11
+#moved to ec.hal
 
 # --- DI 12 Machine power ---
 #net external-machine-power-on halui.machine.on <= hm2_7i76e.0.7i76.0.0.input-12
@@ -114,7 +116,8 @@ net     DI-ATC-toolpresence     motion.digital-in-12
 net coolant-mist  =>     hm2_7i76e.0.7i76.0.0.output-00
 
 # --- DO 01 Machine-enabled ---
-net machine-is-enabled  =>     hm2_7i76e.0.7i76.0.0.output-01
+#net machine-is-enabled  =>     hm2_7i76e.0.7i76.0.0.output-01
+#moved to ec.hal
 
 # --- DO 02 Spindle-air-in ---
 net spindle-air-in => hm2_7i76e.0.7i76.0.0.output-02
