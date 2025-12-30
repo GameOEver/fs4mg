@@ -358,9 +358,18 @@ net machine-is-enabled        <=  motion.motion-enabled
 
 #  ---estop signals---
 
+#net estop-ethercat lcec.0.D1.slave-oper
+
+#loadrt and2 names=and.estop
+#addf and.estop servo-thread
+
+#net estop-ext and.estop.in0
+#net estop-ethercat and.estop.in1
+#net estop-ext-ec and.estop.out
+
 net estop-out     <=  iocontrol.0.user-enable-out
 net estop-ext     =>  iocontrol.0.emc-enable-in
-
+ 
 #  ---signals to show tool offset in the GUI---
 
 net tooloffset-x  <=  motion.tooloffset.x
@@ -372,3 +381,22 @@ net tooloffset-z  <=  motion.tooloffset.z
 #  ---ignore tool prepare requests---
 net tool-prepare-loopback   iocontrol.0.tool-prepare      =>  iocontrol.0.tool-prepared
 
+#loadrt not names=not.d1,not.d2,not.d3,not.d4,not.d5,not.time
+#addf not.d1 servo-thread
+#addf not.d2 servo-thread
+#addf not.d3 servo-thread
+#addf not.d4 servo-thread
+#addf not.d5 servo-thread
+#addf not.time servo-thread
+
+#net ec-op-d1 lcec.0.D1.slave-oper not.d1.in
+#net ec-op-d2 lcec.0.D2.slave-oper not.d2.in
+#net ec-op-d3 lcec.0.D3.slave-oper not.d3.in
+#net ec-op-d4 lcec.0.D4.slave-oper not.d4.in
+#net ec-op-d5 lcec.0.D5.slave-oper not.d5.in
+
+#net ec-not-op-d1 not.d1.out halui.mdi-command-01 
+#net ec-not-op-d2 not.d2.out halui.mdi-command-02 
+#net ec-not-op-d3 not.d3.out halui.mdi-command-03 
+#net ec-not-op-d4 not.d4.out halui.mdi-command-04 
+#net ec-not-op-d5 not.d5.out halui.mdi-command-05 

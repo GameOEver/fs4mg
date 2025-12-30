@@ -22,13 +22,13 @@ net spindle-info-rpm        <= mb2hal.run_info.00.float
 
 # *** Add Time ***
 loadrt time
-loadrt not
+loadrt not names=not.time
 
 addf time.0 servo-thread
-addf not.0 servo-thread
+addf not.time servo-thread
 
-net prog-running not.0.in <= halui.program.is-idle
-net cycle-timer time.0.start <= not.0.out
+net prog-running not.time.in <= halui.program.is-idle
+net cycle-timer time.0.start <= not.time.out
 net cycle-seconds qtpyvcp.timerseconds.in <= time.0.seconds
 net cycle-minutes qtpyvcp.timerminutes.in <= time.0.minutes
 net cycle-hours qtpyvcp.timerhours.in <= time.0.hours

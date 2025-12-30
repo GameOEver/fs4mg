@@ -36,8 +36,8 @@ net 1088_IN_6 lcec.0.D4.din-6
 net 1088_IN_7 lcec.0.D4.din-7
 
 net machine-is-enabled lcec.0.D5.dout-0      #enable drives
-net 2088_OUT_1 lcec.0.D5.dout-1
-net 2088_OUT_2 lcec.0.D5.dout-2
+net machine-is-enabled lcec.0.D5.dout-1
+net machine-is-enabled lcec.0.D5.dout-2
 net 2088_OUT_3 lcec.0.D5.dout-3
 net 2088_OUT_4 lcec.0.D5.dout-4
 net 2088_OUT_5 lcec.0.D5.dout-5
