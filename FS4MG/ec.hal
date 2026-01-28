@@ -17,18 +17,18 @@ net 1008_IN_5 lcec.0.D2.din-5 #DEFEKT
 net 1008_IN_6 lcec.0.D2.din-6
 net 1008_IN_7 lcec.0.D2.din-7
 
-net 2008_OUT_0 lcec.0.D3.dout-0
-net 2008_OUT_1 lcec.0.D3.dout-1
-net 2008_OUT_2 lcec.0.D3.dout-2
-net 2008_OUT_3 lcec.0.D3.dout-3
-net 2008_OUT_4 lcec.0.D3.dout-4
+net spindle-air-in lcec.0.D3.dout-0
+net spindle-dust-remove lcec.0.D3.dout-1
+net spindle-air-return motion.digital-out-02 => lcec.0.D3.dout-2
+net spindle-air-seal motion.digital-out-03 => lcec.0.D3.dout-3
+net tls-clean motion.digital-out-04 => lcec.0.D3.dout-4
 net 2008_OUT_5 lcec.0.D3.dout-5
-net 2008_OUT_6 lcec.0.D3.dout-6
+net coolant-mist lcec.0.D3.dout-6
 net 2008_OUT_7 lcec.0.D3.dout-7
 
 net DI-ATC-drawbar-sensor motion.digital-in-00 <= lcec.0.D4.din-0    #tool released
 net DI-ATC-tool-sensor motion.digital-in-01 <= lcec.0.D4.din-1        #tool clamped
-net 1088_IN_2 lcec.0.D4.din-2
+net 1088_IN_2 lcec.0.D4.din-2	#halui.mdi-command-01 
 net 1088_IN_3 lcec.0.D4.din-3
 net 1088_IN_4 lcec.0.D4.din-4
 net 1088_IN_5 lcec.0.D4.din-5

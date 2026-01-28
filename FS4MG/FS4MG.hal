@@ -6,7 +6,7 @@
 loadrt [KINS]KINEMATICS
 loadrt [EMCMOT]EMCMOT servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS num_dio=15
 loadrt hostmot2
-loadrt hm2_eth board_ip="10.10.10.10" config="num_encoders=1 num_pwmgens=0 num_stepgens=5 sserial_port_0=20xxxxxx" 
+loadrt hm2_eth board_ip="10.10.10.10" config="num_encoders=5 num_pwmgens=0 num_stepgens=5 sserial_port_0=20xxxxxx" 
 setp    hm2_7i76e.0.watchdog.timeout_ns 5000000
 loadrt pid names=pid.x,pid.y,pid.z,pid.s
 
@@ -113,26 +113,32 @@ net     DI-ATC-toolpresence     motion.digital-in-12
 
 # ---Digital Outputs---
 # --- DO 00 MQL ---
-net coolant-mist  =>     hm2_7i76e.0.7i76.0.0.output-00
+#net coolant-mist  =>     hm2_7i76e.0.7i76.0.0.output-00
+#moved to ec.hal
 
 # --- DO 01 Machine-enabled ---
 #net machine-is-enabled  =>     hm2_7i76e.0.7i76.0.0.output-01
 #moved to ec.hal
 
 # --- DO 02 Spindle-air-in ---
-net spindle-air-in => hm2_7i76e.0.7i76.0.0.output-02
+#net spindle-air-in => hm2_7i76e.0.7i76.0.0.output-02
+#moved to ec.hal
 
 # --- DO 03 Spindle-dust-remove ---
-net spindle-dust-remove => hm2_7i76e.0.7i76.0.0.output-03
+#net spindle-dust-remove => hm2_7i76e.0.7i76.0.0.output-03
+#moved to ec.hal
 
 # --- DO 04 Spindle-air-return ---
-net spindle-air-return motion.digital-out-02 => hm2_7i76e.0.7i76.0.0.output-04
+#net spindle-air-return motion.digital-out-02 => hm2_7i76e.0.7i76.0.0.output-04
+#moved to ec.hal
 
 # --- DO 05 Spindle-air-seal ---
-net spindle-air-seal motion.digital-out-03 => hm2_7i76e.0.7i76.0.0.output-05
+#net spindle-air-seal motion.digital-out-03 => hm2_7i76e.0.7i76.0.0.output-05
+#moved to ec.hal
 
 # --- DO 06 TLS-CLEAN ---
-net tls-clean motion.digital-out-04 => hm2_7i76e.0.7i76.0.0.output-06
+#net tls-clean motion.digital-out-04 => hm2_7i76e.0.7i76.0.0.output-06
+#moved to ec.hal
 
 # --- DO 07 Manual Toolchange allowed light ---
 #net light-manual-toolchange-allowed motion.digital-out-05  => hm2_7i76e.0.7i76.0.0.output-07
