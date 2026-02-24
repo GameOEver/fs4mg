@@ -89,13 +89,13 @@ net tls-in       <=  hm2_7i76e.0.7i76.0.0.input-09-not
 net manual-tool-release motion.digital-in-02 <= hm2_7i76e.0.7i76.0.0.input-15
 
 # --- DI 20 ATC Home Sensor ---
-net DI-ATC-home  <= hm2_7i76e.0.7i76.0.0.input-20-not
+#net DI-ATC-home  <= hm2_7i76e.0.7i76.0.0.input-20-not
 
 # --- DI 21 ATC pocket Sensor (aligned) ---
-net DI-ATC-pocket    <= hm2_7i76e.0.7i76.0.0.input-21-not
+#net DI-ATC-pocket    <= hm2_7i76e.0.7i76.0.0.input-21-not
 
 # --- DI 22 ATC tool presence ---
-net DI-ATC-toolpresence    <= hm2_7i76e.0.7i76.0.0.input-22-not
+#net DI-ATC-toolpresence    <= hm2_7i76e.0.7i76.0.0.input-22-not
 
 # --- DI 23 Air Pressure Switch ---
 net DI-PRESSURE-SWITCH  motion.digital-in-04  <= hm2_7i76e.0.7i76.0.0.input-23
@@ -145,10 +145,10 @@ net     DI-ATC-toolpresence     motion.digital-in-12
 # moved to atc.hal
 
 # --- DO 08 Open ATC Cover ---
-net atc-open-cover motion.digital-out-06 => hm2_7i76e.0.7i76.0.0.output-08
+#net atc-open-cover motion.digital-out-06 => hm2_7i76e.0.7i76.0.0.output-08
 
 # --- DO 09 Close ATC Cover ---
-net atc-close-cover motion.digital-out-07 => hm2_7i76e.0.7i76.0.0.output-09
+#net atc-close-cover motion.digital-out-07 => hm2_7i76e.0.7i76.0.0.output-09
 
 # --- Digital - Out - activate 3D Probe ---
 net     probe-active-signal             motion.digital-out-10
