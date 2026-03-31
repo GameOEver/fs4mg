@@ -1,0 +1,91 @@
+# ---------- ATC  ----------
+# Handles all functions pertaining to Tool Change operation
+# Includes the following functions:     
+#       - Check is spindle is off
+#       - set spindle.0.inhibit whenever drawbar is down (hardcoded based on sensor)
+#       - triggers cone cleaning when manual process is triggered
+#       - Configures tool change carousel
+
+# ---------- MANUAL TOOL CHANGE  ----------
+
+# CHECK SPINDLE STOPPED
+loadrt near names=spindle-is-0-rpm
+addf spindle-is-0-rpm servo-thread
+loadrt and2 names=and-spindle-stopped,and.spindlecheck
+addf and-spindle-stopped servo-thread
+addf and.spindlecheck servo-thread
+loadrt or2 names=or.drawbar,or.coneclean
+addf or.drawbar servo-thread
+addf or.coneclean servo-thread
+
+
+setp spindle-is-0-rpm.scale 1.00
+setp spindle-is-0-rpm.in1 0.00
+net true-rpm => spindle-is-0-rpm.in2
+
+net spindle-near-stopped spindle-is-0-rpm.out  and-spindle-stopped.in0
+net spindle-at-speed and-spindle-stopped.in1
+net spindle-is-stopped and-spindle-stopped.out hm2_7i76e.0.7i76.0.0.output-07 motion.digital-in-05
+
+net manual-tool-release and.spindlecheck.in0
+net spindle-is-stopped and.spindlecheck.in1
+net manualswapcheck and.spindlecheck.out
+
+net manualswapcheck or.drawbar.in0
+net air_in_valve motion.digital-out-00 or.drawbar.in1
+
+net manualswapcheck or.coneclean.in0
+net dust_remove_valve motion.digital-out-01 or.coneclean.in1
+
+net spindle-air-in <= or.drawbar.out
+net spindle-dust-remove <= or.coneclean.out
+
+
+
+# ---------- MANUAL TOOLCHANGE----------
+loadusr -W hal_manualtoolchange
+net tool-change iocontrol.0.tool-change => hal_manualtoolchange.change
+net tool-changed iocontrol.0.tool-changed <= hal_manualtoolchange.changed
+net tool-number iocontrol.0.tool-prep-number => hal_manualtoolchange.number
+net tool-prepare-loopback iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
+
+
+# ---------- CAROUSEL TOOL CHANGER  ----------
+loadrt limit2 names=limit2.carousel
+addf limit2.carousel servo-thread
+
+setp limit2.carousel.maxv 175000
+
+
+setp        carousel.0.fwd-dc       [ATC]FWD_DC
+setp        carousel.0.hold-dc      [ATC]HOLD_DC
+setp        carousel.0.rev-dc       [ATC]REV_DC
+setp        carousel.0.rev-pulse    [ATC]REV_PULSE
+setp        carousel.0.align-dc    [ATC]ALIGN_DC
+setp        carousel.0.decel-time    [ATC]DECEL_TIME
+setp 		carousel.0.home-offset 0
+
+# Carousel Setup
+# Signals
+# Enable is required to turn the whole thing on
+#net        carenable         carousel.0.enable 
+# Index = home
+net         DI-ATC-home    carousel.0.sense-0
+# Pocket = pocket signal
+net         DI-ATC-pocket    carousel.0.sense-1
+
+# Setup Write Signales
+net         carousel_enable     carousel.0.enable     
+net         carousel_jog-fwd    carousel.0.jog-fwd
+net         carousel_jog-rev    carousel.0.jog-rev
+net         carousel_force-unhome carousel.0.unhome
+net        	carousel_motor-vel  carousel.0.motor-vel	limit2.carousel.in   
+net 		carousel_limit-vel	limit2.carousel.out			cia402.0.velocity-cmd 
+net         carousel_pocket-number  carousel.0.pocket-number 
+#conv-s32-float.atc-pocket.in
+# Setup READ Signals
+net         carousel_homed      carousel.0.homed
+net         carousel_ready      carousel.0.ready
+net         carousel_current-position carousel.0.current-position conv-s32-float.atc-pocket.in
+# Trigger homing of atc with homing of machine
+net         carousel_home-auto halui.mdi-command-17 joint.1.homed

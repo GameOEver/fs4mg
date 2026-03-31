@@ -1,0 +1,54 @@
+# Load EtherCAT configuration from XML
+loadusr -W lcec_conf ethercat-conf.xml
+
+# Load EtherCAT
+loadrt lcec
+loadrt cia402 count=1
+#loadrt pid names=x-pid
+
+# Add EtherCAT and motion processing functions to the servo thread
+addf	lcec.read-all			servo-thread
+addf	cia402.0.read-all		servo-thread
+#addf	motion-command-handler	servo-thread
+#addf	motion-controller		servo-thread
+addf	cia402.0.write-all		servo-thread
+addf	lcec.write-all			servo-thread
+
+
+net DI-ATC-home lcec.0.D2.din-0-not
+net DI-ATC-pocket lcec.0.D2.din-1-not
+net DI-ATC-toolpresence lcec.0.D2.din-2
+net DI-ATC-COVER-OPEN lcec.0.D2.din-3
+net 1008_IN_4 lcec.0.D2.din-4
+net 1008_IN_5 lcec.0.D2.din-5 #DEFEKT
+net 1008_IN_6 lcec.0.D2.din-6
+net 1008_IN_7 lcec.0.D2.din-7
+
+
+net spindle-air-in lcec.0.D3.dout-0
+net spindle-dust-remove lcec.0.D3.dout-1
+net spindle-air-return motion.digital-out-02 => lcec.0.D3.dout-2
+net spindle-air-seal motion.digital-out-03 => lcec.0.D3.dout-3
+net tls-clean motion.digital-out-04 => lcec.0.D3.dout-4
+net atc-open-cover motion.digital-out-06 => lcec.0.D3.dout-5
+net coolant-mist lcec.0.D3.dout-6
+net atc-close-cover motion.digital-out-07 => lcec.0.D3.dout-7
+
+
+net DI-ATC-drawbar-sensor motion.digital-in-00 <= lcec.0.D4.din-0    #tool released
+net DI-ATC-tool-sensor motion.digital-in-01 <= lcec.0.D4.din-1        #tool clamped
+net 1088_IN_2 lcec.0.D4.din-2	#halui.mdi-command-01 
+net 1088_IN_3 lcec.0.D4.din-3
+net 1088_IN_4 lcec.0.D4.din-4
+net 1088_IN_5 lcec.0.D4.din-5
+net 1088_IN_6 lcec.0.D4.din-6
+net 1088_IN_7 lcec.0.D4.din-7
+
+net machine-is-enabled lcec.0.D5.dout-0      #enable drives
+net machine-is-enabled lcec.0.D5.dout-1
+net machine-is-enabled lcec.0.D5.dout-2
+net 2088_OUT_3 lcec.0.D5.dout-3
+net 2088_OUT_4 lcec.0.D5.dout-4
+net 2088_OUT_5 lcec.0.D5.dout-5
+net 2088_OUT_6 lcec.0.D5.dout-6
+net 2088_OUT_7 lcec.0.D5.dout-7

@@ -1,0 +1,26 @@
+# Halshow settings
+# This file is generated automatically.
+wm geometry . 887x740+866+101
+placeFrames 0.2834285714285714
+set ::ratio 0.2834285714285714
+set ::old_w_leftf 160
+set ::watchlist {
+    pin+lcec.0.D6.temp-0-temperature
+    pin+lcec.0.D6.temp-1-temperature
+    sig+carousel_current-position
+    sig+carousel_pocket-number
+    sig+atc-close-cover
+    sig+atc-open-cover
+    pin+motion.digital-out-06
+    pin+motion.digital-out-07
+    sig+DI-ATC-COVER-OPEN
+    sig+DI-ATC-tool-sensor
+    sig+DI-ATC-toolpresence
+}
+set ::workmode watchhal
+set ::watchInterval 100
+set ::col1_width 100
+set ::ffmts 
+set ::ifmts 
+set ::alwaysOnTop 1
+set ::autoSaveWatchlist 1
